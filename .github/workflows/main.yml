@@ -20,7 +20,7 @@ jobs:
               
         - name: commit files
           run: |
-                git config --local user.email "mike.owino40@yahoo.com"
+                git config --local user.email "mike@mikeowino.com"
                 git config --local user.name "MikeOwino"
                 git add -A
                 git commit -m "run script" -a
