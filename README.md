@@ -1,9 +1,9 @@
-# auto-follow-unfollow
-Follow and unfollow users automatically
+# f4f
+f4f
 
 [![Script](https://github.com/MikeOwino/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/MikeOwino/f4f/actions/workflows/main.yml)
 ### Run details
-- Last run `Tue, 25 Jan 2022 19:47:52 +0000`
+- Last run `Tue, 25 Jan 2022 19:56:38 +0000`
 - X-RateLimit-Used: `0`
 - X-RateLimit-Limit: `5000`
 
