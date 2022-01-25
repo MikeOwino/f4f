@@ -166,8 +166,8 @@ if ($data["followers"] != $data["following"]) {
 //$res = $username;
 date_default_timezone_set("UTC");
 
-$readme = "# auto-follow-unfollow\n";
-$readme .= "Follow and unfollow users automatically\n\n";
+$readme = "# f4f\n";
+$readme .= "f4f\n\n";
 
 $readme .=
     "[![Script](https://github.com/MikeOwino/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/MikeOwino/f4f/actions/workflows/main.yml)";
