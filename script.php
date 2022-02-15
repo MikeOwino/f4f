@@ -77,8 +77,25 @@ function getUsers($u, $p, $type, $page)
     return $json;
 }
 
+function notify($telegram_api, $chat_id, $msg)
+{
+    $cURLConnection = curl_init();
+    curl_setopt(
+        $cURLConnection,
+        CURLOPT_URL,
+        "https://api.telegram.org/bot" . $telegram_api . "/sendMessage?chat_id=" . $chat_id . "&parse_mode=html&text=" . urlencode($msg)
+    );
+    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+    $json = curl_exec($cURLConnection);
+    curl_close($cURLConnection);
+	
+}
+
+
 $username = $argv[1];
 $password = $argv[2];
+$tokenAPI = $argv[3];
+$chatID = $argv[4];
 
 $res = checkCount($username, $password);
 $data = json_decode($res, true);
@@ -141,6 +158,9 @@ if ($data["followers"] != $data["following"]) {
     foreach ($followers as $fl) {
         $Followers[$fl["login"]] = $fl["html_url"];
     }
+	
+	$changes = false;
+	$ms = "<b>New change</b>" . PHP_EOL  . PHP_EOL;
 
     foreach ($following as $fl) {
         $Following[$fl["login"]] = $fl["html_url"];
@@ -149,40 +169,52 @@ if ($data["followers"] != $data["following"]) {
             doAction($username, $password, "DELETE", $fl["login"]);
             $change = $change . "Unfollow " . $fl["login"] . PHP_EOL;
             $cFs = $cFs - 1;
+			$changes = true;
+			$ms .= "⛔ Unfollow -> <a href=\"" .  $fl["html_url"] . "\">" . $fl["login"] . "</a> " . PHP_EOL;
         }
     }
+	$ms .=  PHP_EOL;
     foreach ($followers as $fl) {
         if (!array_key_exists($fl["login"], $Following)) {
             $dif1[$fl["login"]] = $fl["html_url"];
             doAction($username, $password, "PUT", $fl["login"]);
             $change = $change . "Follow " . $fl["login"] . PHP_EOL;
             $cFg = $cFg + 1;
+			$changes = true;
+			$ms .= "✅ Follow -> <a href=\"" .  $fl["html_url"] . "\">" . $fl["login"] . "</a> " . PHP_EOL;
         }
     }
+	notify($tokenAPI, $chatID, $ms);
     //file_put_contents("change.txt", $change . $message);
 } else {
     //file_put_contents("change.txt", "No changes". $message);
 }
 //$res = $username;
+
+
 date_default_timezone_set("UTC");
 
-$readme = "# f4f\n";
-$readme .= "f4f\n\n";
+function generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg) {
+    $readme = "# auto-follow-unfollow\n";
+    $readme .= "Follow and unfollow users automatically\n\n";
 
-$readme .=
-    "[![Script](https://github.com/MikeOwino/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/MikeOwino/f4f/actions/workflows/main.yml)";
+    $readme .=
+        "[![Script](https://github.com/MikeOwino/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/MikeOwino/f4f/actions/workflows/main.yml)";
 
-$readme .= "\n### Run details\n";
+    $readme .= "\n### Run details\n";
 
-$readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
-$readme .= "- X-RateLimit-Used: `" . $used . "`\n";
-$readme .= "- X-RateLimit-Limit: `" . $limit . "`\n\n";
+    $readme .= "- Last run `" . date(DATE_RFC2822) . "`\n";
+    $readme .= "- X-RateLimit-Used: `" . $used . "`\n";
+    $readme .= "- X-RateLimit-Limit: `" . $limit . "`\n\n";
 
-$readme .= "|  | Followers | Following |\n";
-$readme .= "| - | --------- | --------- |\n";
-$readme .= "| Current | " . ($cFs + $cTs). " | " . ($cFg + $cTg) . " |\n";
-$readme .= "| Change | " . $cFs . " | " . $cFg . "|\n";
+    $readme .= "|  | Followers | Following |\n";
+    $readme .= "| - | --------- | --------- |\n";
+    $readme .= "| Current | " . ($cFs + $cTs). " | " . ($cFg + $cTg) . " |\n";
+    $readme .= "| Change | " . $cFs . " | " . $cFg . "|\n";
 
-file_put_contents("README.md", $readme);
+    return $readme;
+}
+
+file_put_contents("README.md", generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg));
 
 ?>
