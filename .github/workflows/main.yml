@@ -26,7 +26,7 @@ jobs:
                 git config --local user.email "mike@mikeowino.com"
                 git config --local user.name "MikeOwino"
                 git add -A
-                git commit -m "run script" -a
+                git commit -m "scanner run" -a
         
         - name: push changes
           uses: ad-m/github-push-action@v0.6.0
