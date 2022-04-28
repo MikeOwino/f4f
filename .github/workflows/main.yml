@@ -19,12 +19,12 @@ jobs:
 
         - name: execute php script # run the script.php
           run: |
-              php script.php MikeOwino ${{ secrets.flx_token }} ${{ secrets.telegram_api }} ${{ secrets.chat_id}}
+              php script.php mikeyhodl ${{ secrets.flx_token }} ${{ secrets.telegram_api }} ${{ secrets.chat_id}}
               
         - name: commit files
           run: |
                 git config --local user.email "mike@mikeowino.com"
-                git config --local user.name "MikeOwino"
+                git config --local user.name "mikeyhodl"
                 git add -A
                 git commit -m "scanner run" -a
         
