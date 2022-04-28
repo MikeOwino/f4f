@@ -199,7 +199,7 @@ function generateReadme($used, $limit, $cFs, $cTs, $cFg, $cTg) {
     $readme .= "Follow and unfollow users automatically\n\n";
 
     $readme .=
-        "[![Script](https://github.com/MikeOwino/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/MikeOwino/f4f/actions/workflows/main.yml)";
+        "[![Script](https://github.com/mikeyhodl/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/mikeyhodl/f4f/actions/workflows/main.yml)";
 
     $readme .= "\n### Run details\n";
 
