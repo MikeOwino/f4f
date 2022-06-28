@@ -3,7 +3,7 @@ Follow and unfollow users automatically
 
 [![Script](https://github.com/mikeyhodl/f4f/actions/workflows/main.yml/badge.svg)](https://github.com/mikeyhodl/f4f/actions/workflows/main.yml)
 ### Run details
-- Last run `Tue, 28 Jun 2022 10:58:00 +0000`
+- Last run `Tue, 28 Jun 2022 11:14:33 +0000`
 - X-RateLimit-Used: `0`
 - X-RateLimit-Limit: `5000`
 
