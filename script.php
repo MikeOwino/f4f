@@ -3,14 +3,14 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-  CURLOPT_URL => "https://api.telegram.org/bot" . $chat_id . "/sendPhoto",
+  CURLOPT_URL => "https://api.telegram.org/bot" . $telegram_api . "/sendPhoto",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "{\"photo\":\"https://res.cloudinary.com/weknow-creators/image/upload/v1645187565/c300_ixeomv.png\",\"disable_notification\":false,\"reply_to_message_id\":null,\"chat_id\":\" . $telegram_api. "\"}",
+  CURLOPT_POSTFIELDS => "{\"photo\":\"https://res.cloudinary.com/weknow-creators/image/upload/v1645187565/c300_ixeomv.png\",\"disable_notification\":false,\"reply_to_message_id\":null,\"chat_id\":\" . $chat_id . "\"}",
   CURLOPT_HTTPHEADER => [
     "Accept: application/json",
     "Content-Type: application/json"
